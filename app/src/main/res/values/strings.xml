@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ThiTracNghiem</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login"> <u>Create account here</u>.</string>
+    <string name="register"> <u>Login here</u>.</string>
+    <string name="signOut">Sign OUT</string>
+
+</resources>
