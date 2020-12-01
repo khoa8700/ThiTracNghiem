@@ -32,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         nav_bottom.setOnNavigationItemSelectedListener(listener);
         frame=findViewById(R.id.frame);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame,new HomeFragment()).commit();
-//        Toast.makeText(this, "id : "+firebaseAuth.getCurrentUser().getUid(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

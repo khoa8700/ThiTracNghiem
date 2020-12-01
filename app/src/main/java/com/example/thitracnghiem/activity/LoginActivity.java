@@ -42,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
             finish();
         }
 
-        //mCreateBtn.getPaint().setUnderlineText(true);
 
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
