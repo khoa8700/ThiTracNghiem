@@ -32,14 +32,12 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseAuth fAuth;
     private FirebaseFirestore firebaseFirestore;
     private FirebaseAuth mAuth;
-    //ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         firebaseFirestore=FirebaseFirestore.getInstance();
-//        mFullName   = findViewById(R.id.fullName);
         mEmail      = findViewById(R.id.Email);
         mPassword   = findViewById(R.id.password);
         mPhone      = findViewById(R.id.phone);
@@ -52,8 +50,6 @@ public class RegisterActivity extends AppCompatActivity {
             finish();
         }
         mAuth=FirebaseAuth.getInstance();
-        //progressBar =findViewById(R.id.progressBar);
-        //mLoginBtn.getPaint().setUnderlineText(true);
 
         if(fAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
@@ -80,14 +76,13 @@ public class RegisterActivity extends AppCompatActivity {
                     mPassword.setError(("Password must be >=6 characters!"));
                     return;
                 }
-                // 110967
+                
                 fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
                             final String email=mEmail.getText().toString().substring(0,mEmail.getText().toString().length()-"@gmail.com".length());
                             Map<String,Object> mapData=new HashMap<>();
-//                            mapData.put("name",mFullName.getText().toString());
                             mapData.put("phone",mPhone.getText().toString());
                             mapData.put("email",mEmail.getText().toString());
                             mapData.put("password",mPassword.getText().toString());

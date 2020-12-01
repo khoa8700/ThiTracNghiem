@@ -57,7 +57,6 @@ public class InfoFragment extends Fragment {
 
                             }
                             else{
-//                                Toast.makeText(v.getContext(), "chua", Toast.LENGTH_SHORT).show();
                                 Intent setupIntent=new Intent(v.getContext(), SetupInfoActivity.class);
                                 getActivity().startActivity(setupIntent);
                                 getActivity().finish();
@@ -70,19 +69,6 @@ public class InfoFragment extends Fragment {
 
                     }
                 });
-//        firebaseFirestore.collection("Info").document(firebaseAuth.getCurrentUser().getUid())
-////                .get().addOnFailureListener(new OnFailureListener() {
-////            @Override
-////            public void onFailure(@NonNull Exception e) {
-////                Toast.makeText(v.getContext(), "chua co tai khoan", Toast.LENGTH_SHORT).show();
-////            }
-////        }).addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-////            @Override
-////            public void onSuccess(DocumentSnapshot value) {
-////                User user=new User(value.get("name").toString(),value.get("email").toString(),value.get("school").toString(),value.get("classs").toString());
-////            }
-////        });
-//        firebaseFirestore.collection("Info").document().
         return v;
     }
 }

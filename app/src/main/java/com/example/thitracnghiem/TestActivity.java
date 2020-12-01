@@ -75,16 +75,11 @@ public class TestActivity extends AppCompatActivity {
                     }
                 });
         countDown = findViewById(R.id.countDown);
-        // sao ko hien time
+    
         long duration = TimeUnit.MINUTES.toMillis(30);
         new CountDownTimer(duration, 1000){
             @Override
             public void onTick(long l) {
-//                countDown.setText(""+String.format(FORMAT, TimeUnit.MILLISECONDS.toHours(millisUntilFinished),
-//                        TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished) - TimeUnit.HOURS.toMinutes(
-//                                TimeUnit.MILLISECONDS.toHours(millisUntilFinished)),
-//                        TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) - TimeUnit.MINUTES.toSeconds(
-//                                TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished))));
                 String sDuration = String.format(Locale.ENGLISH,"%02d:%02d"
                                     ,TimeUnit.MILLISECONDS.toMinutes(l)
                                     ,TimeUnit.MILLISECONDS.toSeconds(l)-
@@ -95,10 +90,9 @@ public class TestActivity extends AppCompatActivity {
                 countDown.setText("done!");
                 int cnt=0;
                 for(int i=0;i<numQues;++i){
-                    // cho lai 5s de test
                     Log.d("ansss","first = "+ans.get(i)+"   second = "+mainList.get(i).getA());
                     if(ans.get(i).equals(mainList.get(i).getA())){
-                        ++cnt; // ok lm j nx save vo high score ak ua
+                        ++cnt;
                     }
                 }
                 Toast.makeText(TestActivity.this, "kq : "+cnt+"/"+numQues, Toast.LENGTH_LONG).show();
@@ -116,7 +110,7 @@ public class TestActivity extends AppCompatActivity {
                 finish();
 
             }
-        }.start(); // lam j ddaay alo
+        }.start();
     }
 
 
@@ -143,7 +137,7 @@ public class TestActivity extends AppCompatActivity {
                     for(int i=0;i<numQues;++i){
                         Log.d("ansss","first = "+ans.get(i)+"   second = "+mainList.get(i).getA());
                         if(ans.get(i).equals(mainList.get(i).getA())){
-                            ++cnt; // ok lm j nx save vo high score ak ua
+                            ++cnt;
                         }
                     }
                     Toast.makeText(this, "kq : "+cnt+"/"+numQues, Toast.LENGTH_SHORT).show();

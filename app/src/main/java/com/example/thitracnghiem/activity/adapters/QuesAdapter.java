@@ -22,8 +22,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-// mua cho tui nx
-// an cc
 public class QuesAdapter extends RecyclerView.Adapter<QuesAdapter.ViewHolder> {
     private List<Question> mainList;
     private List<String> ans;
