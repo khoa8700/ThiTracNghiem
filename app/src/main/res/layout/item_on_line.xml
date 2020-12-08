@@ -8,7 +8,7 @@
     <androidx.cardview.widget.CardView
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -25,7 +25,7 @@
             <ImageView
                 android:id="@+id/imamge"
                 android:layout_width="match_parent"
-                android:layout_height="230dp"
+                android:layout_height="300dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -34,82 +34,38 @@
                 android:layout_weight="4"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
                 <RadioGroup
                     android:layout_width="match_parent"
                     android:orientation="horizontal"
-                    android:layout_height="match_parent">
+                    android:layout_height="wrap_content">
                     <RadioButton
                         android:id="@+id/btn_a"
                         android:layout_weight="1"
                         android:text="A"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="wrap_content"/>
                     <RadioButton
                         android:id="@+id/btn_b"
                         android:text="B"
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="wrap_content"/>
                     <RadioButton
                         android:id="@+id/btn_c"
                         android:text="C"
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="wrap_content"/>
                     <RadioButton
                         android:id="@+id/btn_d"
                         android:text="D"
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="wrap_content"/>
 
                 </RadioGroup>
             </LinearLayout>
         </LinearLayout>
-<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent">-->
-<!--        <RadioGroup-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:orientation="horizontal">-->
-<!--            <RadioButton-->
-<!--                android:id="@+id/btn_a"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="48dp"-->
-<!--                android:layout_marginTop="32dp"-->
-<!--                android:text="A"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/imamge" />-->
-<!--            <RadioButton-->
-<!--                android:id="@+id/btn_b"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginTop="32dp"-->
-<!--                android:layout_marginEnd="48dp"-->
-<!--                android:text="B"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/imamge" />-->
-<!--            <RadioButton-->
-<!--                android:id="@+id/btn_c"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginStart="56dp"-->
-<!--                android:text="C"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent" />-->
-<!--            <RadioButton-->
-<!--                android:id="@+id/btn_d"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginEnd="56dp"-->
-<!--                android:layout_marginBottom="4dp"-->
-<!--                android:text="D"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent" />-->
-<!--        </RadioGroup>-->
-
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
