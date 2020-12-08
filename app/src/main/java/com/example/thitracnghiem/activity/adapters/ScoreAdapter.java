@@ -29,6 +29,7 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> 
     public void onBindViewHolder(@NonNull ScoreAdapter.ViewHolder holder, int position) {
         Double score=scores.get(position);
         holder.setColor(score);
+        holder.tvName.setText("#");
     }
 
     @Override
@@ -37,11 +38,12 @@ public class ScoreAdapter extends RecyclerView.Adapter<ScoreAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvScore;
+        private TextView tvScore,tvName;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             v=itemView;
             tvScore=v.findViewById(R.id.tv_score);
+            tvName=v.findViewById(R.id.tv_name);
         }
         public void setColor(Double score){
             if(score<=5){
