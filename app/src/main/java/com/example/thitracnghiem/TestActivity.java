@@ -45,6 +45,8 @@ public class TestActivity extends AppCompatActivity {
     private ArrayList<String> index=new ArrayList<>();
     private int numQues=10;
     private FirebaseFirestore firebaseFirestore;
+    private ArrayList<Boolean> statusList=new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +58,7 @@ public class TestActivity extends AppCompatActivity {
         }
         rv=findViewById(R.id.rv);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        adapter=new QuesAdapter(mainList,ans,index);
+        adapter=new QuesAdapter(mainList,ans,index,statusList);
         rv.setAdapter(adapter);
         firebaseFirestore.collection("dethi").document("LOP12")
                 .collection("TOAN")
@@ -69,13 +71,13 @@ public class TestActivity extends AppCompatActivity {
                             if(doc.getType()==DocumentChange.Type.ADDED){
                                 Question cur=doc.getDocument().toObject(Question.class);
                                 mainList.add(cur);
+                                statusList.add(false);
                                 adapter.notifyDataSetChanged();
                             }
                         }
                     }
                 });
         countDown = findViewById(R.id.countDown);
-    
         long duration = TimeUnit.MINUTES.toMillis(30);
         new CountDownTimer(duration, 1000){
             @Override
@@ -137,7 +139,7 @@ public class TestActivity extends AppCompatActivity {
                     for(int i=0;i<numQues;++i){
                         Log.d("ansss","first = "+ans.get(i)+"   second = "+mainList.get(i).getA());
                         if(ans.get(i).equals(mainList.get(i).getA())){
-                            ++cnt;
+                            ++cnt; 
                         }
                     }
                     Toast.makeText(this, "kq : "+cnt+"/"+numQues, Toast.LENGTH_SHORT).show();

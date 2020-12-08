@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
-import com.example.thitracnghiem.activity.adapters.QuesAdapter;
+import com.example.thitracnghiem.activity.adapters.QuesPracAdapter;
 import com.example.thitracnghiem.model.Question;
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
@@ -20,11 +20,12 @@ import java.util.List;
 
 public class PracticeActivity extends AppCompatActivity {
     private RecyclerView rv;
-    private QuesAdapter adapter;
+    private QuesPracAdapter adapter;
     private List<Question> mainList=new ArrayList<>();
     private List<String> ans=new ArrayList<>();
     private ArrayList<String> index=new ArrayList<>();
     private int numQues=5;
+    private ArrayList<Boolean> statusList=new ArrayList<>();
     private FirebaseFirestore firebaseFirestore;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,7 @@ public class PracticeActivity extends AppCompatActivity {
         }
         rv=findViewById(R.id.rvPrac);
         rv.setLayoutManager(new LinearLayoutManager(this));
-        adapter=new QuesAdapter(mainList,ans,index);
+        adapter=new QuesPracAdapter(mainList,ans,index,statusList);
         rv.setAdapter(adapter);
         firebaseFirestore.collection("dethi").document("LOP12")
                 .collection("TOAN")
@@ -50,6 +51,7 @@ public class PracticeActivity extends AppCompatActivity {
                             if(doc.getType()==DocumentChange.Type.ADDED) {
                                 Question cur = doc.getDocument().toObject(Question.class);
                                 mainList.add(cur);
+                                statusList.add(false);
                                 adapter.notifyDataSetChanged();
                             }
                         }
