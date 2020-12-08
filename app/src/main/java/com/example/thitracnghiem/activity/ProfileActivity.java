@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.thitracnghiem.MainActivity;
 import com.example.thitracnghiem.R;
+import com.example.thitracnghiem.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,19 +44,18 @@ public class ProfileActivity extends AppCompatActivity {
         mProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Map<String,Object> mapData=new HashMap<>();
-                mapData.put("name",mFullName.getText().toString());
-                mapData.put("agee",mAge.getText().toString());
-                mapData.put("classic",mClass.getText().toString());
-                mapData.put("skul",mSchool.getText().toString());
-                firebaseFirestore.collection("Users").document(mAuth.getCurrentUser().getUid())
-                        .set(mapData)
+                String Name,Class,School,Age;
+                Name=mFullName.getText().toString();
+                Class=mClass.getText().toString();
+                Age=mAge.getText().toString();
+                School=mSchool.getText().toString();
+                User user=new User(Name,Integer.parseInt(Age),School,Class);
+                firebaseFirestore.collection("Info").document(mAuth.getCurrentUser().getUid())
+                        .set(user)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful()){
-                                    Intent mainIntent=new Intent(ProfileActivity.this, MainActivity.class);
-                                    startActivity(mainIntent);
                                     finish();
                                 }
                             }

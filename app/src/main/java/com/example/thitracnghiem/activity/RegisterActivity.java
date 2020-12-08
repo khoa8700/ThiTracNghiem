@@ -76,7 +76,6 @@ public class RegisterActivity extends AppCompatActivity {
                     mPassword.setError(("Password must be >=6 characters!"));
                     return;
                 }
-                
                 fAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -94,8 +93,6 @@ public class RegisterActivity extends AppCompatActivity {
                                             if(task.isSuccessful()){
                                                 Toast.makeText(RegisterActivity.this, "Added", Toast.LENGTH_SHORT).show();
                                                 Toast.makeText(RegisterActivity.this, "user : "+email, Toast.LENGTH_SHORT).show();
-                                            Intent mainIntent=new Intent(RegisterActivity.this,ProfileActivity.class);
-                                            startActivity(mainIntent);
                                             finish();
                                             }
                                         }
