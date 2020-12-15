@@ -70,11 +70,12 @@ public class InfoFragment extends Fragment {
 
                         }
                         else{
-                            Toast.makeText(v.getContext(), "chua co users", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(v.getContext(), "User not exist!", Toast.LENGTH_SHORT).show();
                         }
 
                     }
                 });
+
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
