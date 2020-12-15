@@ -59,11 +59,6 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
 
-                if(password.length()<6){
-                    mPassword.setError(("Password must be >=6 characters!"));
-                    return;
-                }
-
                 fAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
@@ -71,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this,"Login successfully",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         }else {
-                            Toast.makeText(LoginActivity.this,"Error !"+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this,"Wrong Email or Password!",Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -82,16 +77,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mCreateBtn.setTextColor(Color.parseColor("blue"));
-
-                //function delay
-                final Handler h = new Handler();
-                h.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Do something after 1s
-                        startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
-                    }
-                }, 300);
+                startActivity(new Intent(getApplicationContext(), RegisterActivity.class));
 
             }
         });

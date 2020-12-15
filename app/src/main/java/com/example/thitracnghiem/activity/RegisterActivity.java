@@ -3,7 +3,7 @@ package com.example.thitracnghiem.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RegisterActivity extends AppCompatActivity {
-    EditText mFullName,mEmail,mPassword,mPhone;
+    EditText mEmail,mPassword,mPhone;
     Button mRegisterBtn;
     TextView mLoginBtn;
     FirebaseAuth fAuth;
@@ -50,7 +50,6 @@ public class RegisterActivity extends AppCompatActivity {
             finish();
         }
         mAuth=FirebaseAuth.getInstance();
-
         if(fAuth.getCurrentUser() != null){
             startActivity(new Intent(getApplicationContext(), MainActivity.class));
             finish();
@@ -97,7 +96,21 @@ public class RegisterActivity extends AppCompatActivity {
                                             }
                                         }
                                     });
-                            Toast.makeText(RegisterActivity.this,"User created :))",Toast.LENGTH_SHORT).show();
+                            Map<String,String> mapID=new HashMap<>();
+                            mapID.put("id",mAuth.getCurrentUser().getUid()+"");
+                            firebaseFirestore.collection("HighScore").document(mAuth.getCurrentUser().getUid())
+                                    .set(mapID)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                            }
+                                            else{
+                                                Toast.makeText(RegisterActivity.this,task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
+                            Toast.makeText(RegisterActivity.this,"User created",Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(),ProfileActivity.class));
 
                         }else {
@@ -112,17 +125,7 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 mLoginBtn.setTextColor(Color.parseColor("blue"));
-
-                //function delay
-                final Handler h = new Handler();
-                h.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        //Do something after 1s
-                        startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                    }
-                }, 300);
-
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
 

@@ -60,7 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
                                 }
                             }
                         });
-                Toast.makeText(ProfileActivity.this,"Savedd :))",Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this,"Profile saved",Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getApplicationContext(),MainActivity.class));
             }
         });
