@@ -108,7 +108,6 @@ public class TestActivity extends AppCompatActivity {
 
                             }
                         }.start();
-                        Toast.makeText(TestActivity.this,"cc", Toast.LENGTH_SHORT).show();
                     }
                 });
 
