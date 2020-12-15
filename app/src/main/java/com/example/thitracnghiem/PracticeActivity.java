@@ -1,11 +1,13 @@
 package com.example.thitracnghiem;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 
 import com.example.thitracnghiem.activity.adapters.QuesPracAdapter;
 import com.example.thitracnghiem.model.Question;
@@ -23,27 +25,27 @@ public class PracticeActivity extends AppCompatActivity {
     private QuesPracAdapter adapter;
     private List<Question> mainList=new ArrayList<>();
     private List<String> ans=new ArrayList<>();
-    private ArrayList<String> index=new ArrayList<>();
-    private int numQues=5;
     private ArrayList<Boolean> statusList=new ArrayList<>();
     private FirebaseFirestore firebaseFirestore;
+    private String dethi;
+    private String chuong;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_practice);
         firebaseFirestore=FirebaseFirestore.getInstance();
-        for(int i=0;i<numQues;++i){
-            ans.add("X");
-            index.add("Câu "+(i+1)+":");
-        }
-        rv=findViewById(R.id.rvPrac);
-        rv.setLayoutManager(new LinearLayoutManager(this));
-        adapter=new QuesPracAdapter(mainList,ans,index,statusList);
-        rv.setAdapter(adapter);
+
+        if(getIntent().hasExtra("BienHinh")) {dethi=getIntent().getStringExtra("BienHinh");chuong="KhongGian";}
+        if(getIntent().hasExtra("TheTich")){ dethi=getIntent().getStringExtra("TheTich");chuong="KhongGian";}
+        if(getIntent().hasExtra("CongTru")){ dethi=getIntent().getStringExtra("CongTru");chuong="SoPhuc";}
+        if(getIntent().hasExtra("LyThuyet")){ dethi=getIntent().getStringExtra("LyThuyet");chuong="SoPhuc";}
+
         firebaseFirestore.collection("dethi").document("LOP12")
                 .collection("TOAN")
-                .document("SoPhuc")
-                .collection("CongTru")
+                .document(chuong)
+                .collection(dethi)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -52,11 +54,25 @@ public class PracticeActivity extends AppCompatActivity {
                                 Question cur = doc.getDocument().toObject(Question.class);
                                 mainList.add(cur);
                                 statusList.add(false);
+                                ans.add("X");
                                 adapter.notifyDataSetChanged();
                             }
                         }
                     }
                 });
+        rv=findViewById(R.id.rvPrac);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        adapter=new QuesPracAdapter(mainList,ans,statusList);
+        rv.setAdapter(adapter);
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                this.finish();
+                return true;
+        }
+        return false;
     }
 
 }

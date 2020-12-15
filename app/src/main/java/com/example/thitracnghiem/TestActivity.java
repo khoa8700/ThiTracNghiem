@@ -42,28 +42,25 @@ public class TestActivity extends AppCompatActivity {
     private QuesAdapter adapter;
     private List<Question> mainList=new ArrayList<>();
     private List<String> ans=new ArrayList<>();
-    private ArrayList<String> index=new ArrayList<>();
-    private int numQues=10;
+    private int numQues;
     private FirebaseFirestore firebaseFirestore;
     private ArrayList<Boolean> statusList=new ArrayList<>();
+    private String dethi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         firebaseFirestore=FirebaseFirestore.getInstance();
-        for(int i=0;i<numQues;++i){
-            ans.add("X");
-            index.add("Câu "+(i+1)+":");
-        }
-        rv=findViewById(R.id.rv);
-        rv.setLayoutManager(new LinearLayoutManager(this));
-        adapter=new QuesAdapter(mainList,ans,index,statusList);
-        rv.setAdapter(adapter);
+
+        if(getIntent().hasExtra("LuyThua")) {dethi=getIntent().getStringExtra("LuyThua");}
+        if(getIntent().hasExtra("Loga")){ dethi=getIntent().getStringExtra("Loga");}
+        if(getIntent().hasExtra("HamsoLoga")){ dethi=getIntent().getStringExtra("HamsoLoga");}
+
         firebaseFirestore.collection("dethi").document("LOP12")
                 .collection("TOAN")
                 .document("Logarit")
-                .collection("LuyThua")
+                .collection(dethi)
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
@@ -72,49 +69,54 @@ public class TestActivity extends AppCompatActivity {
                                 Question cur=doc.getDocument().toObject(Question.class);
                                 mainList.add(cur);
                                 statusList.add(false);
+                                ans.add("X");
                                 adapter.notifyDataSetChanged();
                             }
                         }
-                    }
-                });
-        countDown = findViewById(R.id.countDown);
-        long duration = TimeUnit.MINUTES.toMillis(30);
-        new CountDownTimer(duration, 1000){
-            @Override
-            public void onTick(long l) {
-                String sDuration = String.format(Locale.ENGLISH,"%02d:%02d"
-                                    ,TimeUnit.MILLISECONDS.toMinutes(l)
-                                    ,TimeUnit.MILLISECONDS.toSeconds(l)-
-                                    TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l)));
-                countDown.setText(sDuration);
-            }
-            public void onFinish() {
-                countDown.setText("done!");
-                int cnt=0;
-                for(int i=0;i<numQues;++i){
-                    Log.d("ansss","first = "+ans.get(i)+"   second = "+mainList.get(i).getA());
-                    if(ans.get(i).equals(mainList.get(i).getA())){
-                        ++cnt;
-                    }
-                }
-                Toast.makeText(TestActivity.this, "kq : "+cnt+"/"+numQues, Toast.LENGTH_LONG).show();
-                Map<String,Double> mapPost=new HashMap<>();
-                mapPost.put("diem",getMark(cnt));
-                firebaseFirestore.collection("HighScore").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                        .collection("highscores").add(mapPost).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DocumentReference> task) {
-                        Toast.makeText(TestActivity.this, "added", Toast.LENGTH_SHORT).show();
-                    }
-                });
-                Intent mainIntent=new Intent(TestActivity.this,MainActivity.class);
-                startActivity(mainIntent);
-                finish();
+                        numQues= value.getDocuments().size();
+                        countDown = findViewById(R.id.countDown);
+                        long duration = numQues*3000*60/2;
+                        new CountDownTimer(duration, 1000){
+                            @Override
+                            public void onTick(long l) {
+                                String sDuration = String.format(Locale.ENGLISH,"%02d:%02d"
+                                        ,TimeUnit.MILLISECONDS.toMinutes(l)
+                                        ,TimeUnit.MILLISECONDS.toSeconds(l)-
+                                                TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(l)));
+                                countDown.setText(sDuration);
+                            }
+                            public void onFinish() {
+                                countDown.setText("done!");
+                                int cnt=0;
+                                for(int i=0;i<numQues;++i){
+                                    if(ans.get(i).equals(mainList.get(i).getA())){
+                                        ++cnt;
+                                    }
+                                }
+                                Toast.makeText(TestActivity.this, "Correct "+cnt+"/"+numQues, Toast.LENGTH_LONG).show();
+                                Map<String,Double> mapPost=new HashMap<>();
+                                mapPost.put("diem",getMark(cnt));
+                                firebaseFirestore.collection("HighScore").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                        .collection(dethi).add(mapPost).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentReference> task) {
+                                    }
+                                });
+                                Intent mainIntent=new Intent(TestActivity.this,MainActivity.class);
+                                startActivity(mainIntent);
+                                finish();
 
-            }
-        }.start();
+                            }
+                        }.start();
+                        Toast.makeText(TestActivity.this,"cc", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        rv=findViewById(R.id.rv);
+        rv.setLayoutManager(new LinearLayoutManager(this));
+        adapter=new QuesAdapter(mainList,ans,statusList);
+        rv.setAdapter(adapter);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -132,24 +134,23 @@ public class TestActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.act_submit:
                 if(mainList.size()<numQues){
-                    Toast.makeText(this, "chua load xong :v", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "chưa load hết câu hỏi", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     int cnt=0;
                     for(int i=0;i<numQues;++i){
-                        Log.d("ansss","first = "+ans.get(i)+"   second = "+mainList.get(i).getA());
                         if(ans.get(i).equals(mainList.get(i).getA())){
-                            ++cnt; 
+                            ++cnt;
                         }
                     }
-                    Toast.makeText(this, "kq : "+cnt+"/"+numQues, Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(TestActivity.this, "Correct "+cnt+"/"+numQues, Toast.LENGTH_LONG).show();
                     Map<String,Double> mapPost=new HashMap<>();
                     mapPost.put("diem",getMark(cnt));
                     firebaseFirestore.collection("HighScore").document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                            .collection("highscores").add(mapPost).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                            .collection(dethi).add(mapPost).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                         @Override
                         public void onComplete(@NonNull Task<DocumentReference> task) {
-                            Toast.makeText(TestActivity.this, "added", Toast.LENGTH_SHORT).show();
                         }
                     });
                     Intent mainIntent=new Intent(TestActivity.this,MainActivity.class);

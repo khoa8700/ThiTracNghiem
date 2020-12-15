@@ -61,19 +61,15 @@ public class MainActivity extends AppCompatActivity {
             switch(item.getItemId()){
                 case R.id.nav_home:
                     tmp=new HomeFragment();
-                    Toast.makeText(MainActivity.this, "home", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.nav_practice:
                     tmp=new PracticeFragment();
-                    Toast.makeText(MainActivity.this, "practice", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.nav_test:
                     tmp=new TestFragment();
-                    Toast.makeText(MainActivity.this, "test", Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.nav_info:
                     tmp=new InfoFragment();
-                    Toast.makeText(MainActivity.this, "info", Toast.LENGTH_SHORT).show();
                     break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.frame,tmp).commit();

@@ -71,7 +71,6 @@ public class SetupInfoActivity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Toast.makeText(SetupInfoActivity.this, "Added", Toast.LENGTH_SHORT).show();
                                     finish();
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
@@ -86,7 +85,6 @@ public class SetupInfoActivity extends AppCompatActivity {
         });
 
     }
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
