@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ProfileActivity">
+    tools:context=".activity.ProfileActivity"
+    android:background="@color/colorGray">
 
     <TextView
         android:id="@+id/textView"
@@ -14,6 +15,7 @@
         android:textAlignment="textStart"
         android:textAllCaps="true"
         android:textSize="36sp"
+        android:textColor="@color/colorBlack"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,7 +27,7 @@
         android:id="@+id/fullName"
         android:layout_width="285dp"
         android:layout_height="48dp"
-        android:background="#86FFEB3B"
+        android:background="#FFFFFF"
         android:ems="10"
         android:hint="Họ tên"
         android:paddingLeft="10sp"
@@ -39,7 +41,7 @@
         android:id="@+id/Age"
         android:layout_width="285dp"
         android:layout_height="48dp"
-        android:background="#86FFEB3B"
+        android:background="#FFFFFF"
         android:ems="10"
         android:hint="Tuổi"
         android:paddingLeft="10sp"
@@ -52,7 +54,7 @@
         android:id="@+id/Class"
         android:layout_width="285dp"
         android:layout_height="48dp"
-        android:background="#86FFEB3B"
+        android:background="#FFFFFF"
         android:ems="10"
         android:hint="Lớp"
         android:paddingLeft="10sp"
@@ -65,7 +67,7 @@
         android:id="@+id/School"
         android:layout_width="285dp"
         android:layout_height="48dp"
-        android:background="#86FFEB3B"
+        android:background="#FFFFFF"
         android:ems="10"
         android:hint="Trường"
         android:paddingLeft="10sp"

@@ -12,16 +12,38 @@
         android:layout_height="wrap_content"
         android:text="Trang luyện tập"
         android:textSize="32dp"
+        android:background="#61000000"
         android:textAlignment="center"
         android:textColor="#009688"
         android:textStyle="bold"
         android:layout_gravity="center_horizontal"
         android:layout_marginVertical="150dp"/>
-    <Button
-        android:id="@+id/btn_practice"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_marginLeft="@android:dimen/app_icon_size"
+        android:layout_marginRight="@android:dimen/app_icon_size"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="horizontal"
         android:layout_gravity="center"
-        android:text="Practice">
-    </Button>
+        android:weightSum="4">
+        <LinearLayout
+            android:background="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="3">
+            <Spinner
+                android:id="@+id/dropListP"
+                android:background="@drawable/borderline"
+                android:layout_width="wrap_content"
+                android:layout_height="@android:dimen/app_icon_size">
+            </Spinner>
+        </LinearLayout>
+        <Button
+            android:id="@+id/btn_practice"
+            android:layout_width="150dp"
+            android:layout_height="match_parent"
+            android:text="Practice"
+            android:layout_weight="1">
+        </Button>
+    </LinearLayout>
 </FrameLayout>

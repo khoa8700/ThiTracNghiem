@@ -84,7 +84,7 @@
             android:id="@+id/btn_save"
             android:layout_width="285dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn"
+            android:background="@drawable/btn2"
             android:text="save"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
