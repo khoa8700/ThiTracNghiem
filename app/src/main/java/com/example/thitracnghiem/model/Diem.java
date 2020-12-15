@@ -2,7 +2,20 @@ package com.example.thitracnghiem.model;
 
 public class Diem {
     Double diem;
-    public Diem() {}
+    String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Diem(double diem, String id) {
+        this.diem=diem;
+        this.id=id;
+    }
     public Double getDiem() {
         return diem;
     }
