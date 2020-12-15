@@ -27,13 +27,11 @@ import java.util.List;
 public class QuesAdapter extends RecyclerView.Adapter<QuesAdapter.ViewHolder> {
     private List<Question> mainList;
     private List<String> ans;
-    private ArrayList<String> index;
     private View v;
     private  ArrayList<Boolean> mCheckedState;
-    public QuesAdapter(List<Question> mainList,List<String> ans,ArrayList<String> index,ArrayList<Boolean> mCheckedState){
+    public QuesAdapter(List<Question> mainList,List<String> ans,ArrayList<Boolean> mCheckedState){
         this.ans=ans;
         this.mainList=mainList;
-        this.index=index;
         this.mCheckedState=mCheckedState;
     }
     @NonNull
@@ -60,7 +58,7 @@ public class QuesAdapter extends RecyclerView.Adapter<QuesAdapter.ViewHolder> {
         String image=mainList.get(position).getQ();
         Bitmap bm=StringToBitMap(image);
         holder.img.setImageBitmap(bm);
-        holder.quesIndex.setText(index.get(position));
+        holder.quesIndex.setText("Câu "+(position+1)+":");
 
         if(mCheckedState.get(position)==false){
             holder.btnA.setChecked(false);

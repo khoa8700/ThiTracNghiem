@@ -31,13 +31,11 @@ import java.util.List;
 public class QuesPracAdapter extends RecyclerView.Adapter<QuesPracAdapter.ViewHolder> {
     private List<Question> mainList;
     private List<String> answ;
-    private ArrayList<String> index;
     private View v;
     private  ArrayList<Boolean> mCheckedState;
-    public QuesPracAdapter(List<Question> mainList, List<String> ans, ArrayList<String> index, ArrayList<Boolean> mCheckedState){
+    public QuesPracAdapter(List<Question> mainList, List<String> ans, ArrayList<Boolean> mCheckedState){
         this.answ=ans;
         this.mainList=mainList;
-        this.index=index;
         this.mCheckedState=mCheckedState;
     }
     @NonNull
@@ -66,7 +64,7 @@ public class QuesPracAdapter extends RecyclerView.Adapter<QuesPracAdapter.ViewHo
         holder.img.setImageBitmap(bm);
         String ans=mainList.get(position).getA();
         holder.tvAns.setText(ans);
-        holder.quesIndex.setText(index.get(position));
+        holder.quesIndex.setText("Câu "+(position+1)+":");
         boolean expandMode=mCheckedState.get(position);
         if(expandMode) holder.expand.setVisibility(View.VISIBLE);
         else holder.expand.setVisibility(View.GONE);
@@ -82,37 +80,31 @@ public class QuesPracAdapter extends RecyclerView.Adapter<QuesPracAdapter.ViewHo
             if(cur.equals("A")){
                 holder.btnA.setSelected(true);
                 holder.btnA.setBackgroundResource(R.color.colorGreen);
-                if(cansw.equals("B"))  holder.btnB.setBackgroundResource(R.color.colorRed);
-                if(cansw.equals("C"))  holder.btnC.setBackgroundResource(R.color.colorRed);
-                if(cansw.equals("D"))  holder.btnD.setBackgroundResource(R.color.colorRed);
             }
             if(cur.equals("B")){
                 holder.btnB.setSelected(true);
                 holder.btnB.setBackgroundResource(R.color.colorGreen);
-                if(cansw.equals("A"))  holder.btnA.setBackgroundResource(R.color.colorRed);
-                if(cansw.equals("C"))  holder.btnC.setBackgroundResource(R.color.colorRed);
-                if(cansw.equals("D"))  holder.btnD.setBackgroundResource(R.color.colorRed);
             }
             if(cur.equals("C")){
                 holder.btnC.setSelected(true);
                 holder.btnC.setBackgroundResource(R.color.colorGreen);
-                if(cansw.equals("B"))  holder.btnB.setBackgroundResource(R.color.colorRed);
-                if(cansw.equals("A"))  holder.btnA.setBackgroundResource(R.color.colorRed);
-                if(cansw.equals("D"))  holder.btnD.setBackgroundResource(R.color.colorRed);
             }
             if(cur.equals("D")){
                 holder.btnD.setSelected(true);
                 holder.btnD.setBackgroundResource(R.color.colorGreen);
-                if(cansw.equals("B"))  holder.btnB.setBackgroundResource(R.color.colorRed);
-                if(cansw.equals("C"))  holder.btnC.setBackgroundResource(R.color.colorRed);
-                if(cansw.equals("A"))  holder.btnA.setBackgroundResource(R.color.colorRed);
             }
+            if(cansw.equals("A") && !cansw.equals(cur))  holder.btnA.setBackgroundResource(R.color.colorRed);
+            if(cansw.equals("B") && !cansw.equals(cur))  holder.btnB.setBackgroundResource(R.color.colorRed);
+            if(cansw.equals("C") && !cansw.equals(cur))  holder.btnC.setBackgroundResource(R.color.colorRed);
+            if(cansw.equals("D") && !cansw.equals(cur))  holder.btnD.setBackgroundResource(R.color.colorRed);
         }
 
 
         holder.btnA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(mCheckedState.get(position) == true)
+                    return;
                 mCheckedState.set(position,true);
                 holder.expand.setVisibility(View.VISIBLE);
                 answ.set(position,"A");
@@ -132,6 +124,8 @@ public class QuesPracAdapter extends RecyclerView.Adapter<QuesPracAdapter.ViewHo
         holder.btnB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(mCheckedState.get(position) == true)
+                    return;
                 mCheckedState.set(position,true);
                 holder.expand.setVisibility(View.VISIBLE);
                 answ.set(position,"B");
@@ -152,6 +146,8 @@ public class QuesPracAdapter extends RecyclerView.Adapter<QuesPracAdapter.ViewHo
         holder.btnC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(mCheckedState.get(position) == true)
+                    return;
                 mCheckedState.set(position,true);
                 holder.expand.setVisibility(View.VISIBLE);
                 answ.set(position,"C");
@@ -171,6 +167,8 @@ public class QuesPracAdapter extends RecyclerView.Adapter<QuesPracAdapter.ViewHo
         holder.btnD.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(mCheckedState.get(position) == true)
+                    return;
                 mCheckedState.set(position,true);
                 holder.expand.setVisibility(View.VISIBLE);
                 answ.set(position,"D");
